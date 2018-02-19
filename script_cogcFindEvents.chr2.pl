@@ -17,7 +17,7 @@ my $chromSizes		= "dm6.chrom.sizes";
 my $pwd = `pwd`;
 chomp($pwd);
 my $refLoc = "/Users/danny/projects/genomes/dmel";
-my $parentLoc = "/Users/danny/projects/parentalGenomes";
+my $parentLoc = "parentalData";
 
 ## Command-line options
 my %opts;
@@ -296,9 +296,7 @@ if (!$opts{'e'}) {  # -e flag is to use existing out_uniqueParentalVariants.tsv 
 	undef %parentalSNPs;
 	undef %cns;
 
-	#open OUTF,">$pwd/out_uniqueOregonRVariants.tsv";
-	open OUTF,">$pwd/out_uniquew1118Variants.tsv";
-	#open OUTF,">$pwd/out_uniqueParentalVariants.tsv";
+	open OUTF,">$pwd/out_uniqueParentalVariants.chr2.tsv";
 	print OUTF $output;
 	close OUTF;
 
