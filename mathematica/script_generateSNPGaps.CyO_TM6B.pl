@@ -1,6 +1,22 @@
 #!/usr/bin/perl
 
 use strict;
+use Getopt::Std;
+
+my %opts;
+getopts('c:h', \%opts); 
+
+if ($opts{'h'} || !$opts{'c'}) {
+	print "
+	Required:
+		-c Chromosome you want to get data for, a for all
+
+	Optional:
+		-h this helpful help
+
+	\n";
+	exit 0;
+}
 
 my %chromosomeSizes;
 $chromosomeSizes{"chr3R"} = 32079331;
@@ -12,15 +28,19 @@ $chromosomeSizes{"chr4"} = 1348131;
 
 my %finalOutput;
 foreach my $balancer ("CyO","TM6B") {
+	next unless $balancer eq "TM6B";
 	my($mergeFile,@chrs,$chrPrefix,$vcfCount);
 	if ($balancer =~ /CyO/) {
 		@chrs = qw/ chr2L chr2R /;
-		$chrPrefix = "chr2";
+		@chrs = qw/ chr2R /;
+		$chrPrefix = "chr2R";
 		$mergeFile = "vcf-merge.CyO.vcf.gz";
 		$vcfCount = 50; 
 	} elsif ($balancer =~ /TM6B/) {
 		@chrs = qw/ chr3L chr3R /;
+		@chrs = qw/ chr3R /;
 		$chrPrefix = "chr3";
+		$chrPrefix = "chr3R";
 		$mergeFile = "vcf-merge.TM6B.vcf.gz";
 		$vcfCount = 58;
 	}
